@@ -1,11 +1,5 @@
 <?php
 
-$var="Peida e voa!"
+echo "Peida e voa!";
 
-if (strlen > 6) {
-echo $var;
-}
-else {
-  "Opa..."
-}
 ?>

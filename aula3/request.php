@@ -1,17 +1,20 @@
 <?php
+
 class Request
 {
 	private $method;
 	private $protocol;
-	private $ip;
+	private $server_ip;
+	private $remote_ip;
 	private $resource;
 	private $parameters;
 	
 	
-	public function __construct($method, $protocol, $ip, $resource, $parameters){
+	public function __construct($method, $protocol, $server_ip, $remote_ip, $resource, $parameters){
 		$this->method=$method;
 		$this->protocol=$protocol;
-		$this->ip=$ip;
+		$this->server_ip=$server_ip;
+		$this->remote_ip=$remote_ip;
 		$this->resource=$resource;
 		$this->parameters=$parameters;
 	}
@@ -27,11 +30,17 @@ class Request
 	public function getProtocol() {
   		return $this->protocol;
 	}
-	public function setIp($ip) {
-  		$this->ip = $ip;
+	public function setServerIp($ip) {
+  		$this->server_ip = $ip;
 	}
-	public function getIp() {
-  		return $this->ip;
+	public function getServerIp() {
+  		return $this->server_ip;
+	}
+	public function setRemoteIp($ip) {
+  		$this->remote_ip = $ip;
+	}
+	public function getRemoteIp() {
+  		return $this->remote_ip;
 	}
 	public function setResource($resource) {
   		$this->resource = $resource;
@@ -54,11 +63,4 @@ class Request
 		}
 		return $this->protocol.'://'.$this->ip.'/'.$this->resource.'?'.$token;
 	}
-
 }
-
-
-
-$request = new Request("POST", "http", "192.168.25.1", "signup", array("nome", "email", "telefone", "datanasc"));
-
-echo $request->toString();

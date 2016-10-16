@@ -1,16 +1,15 @@
 <?php
 
-echo "<a href=http://localhost/eventSys/user>Get users<a/></br>";
+include('../eventSys/control/request_controller.php');
+include('../eventSys/view/index.html');
 
-echo "<a href=http://localhost/eventSys/user?cpf=012.045.698-23>Get users by id<a/></br>";
 
-echo "<a href=http://localhost/eventSys/user?firstname=Jose>Get users by name<a/></br>";
+$controller = new RequestController();
 
-echo "<a href=http://localhost/eventSys/event>Get event<a/></br>";
+//var_dump($controller->execute());
 
-echo "<a href=http://localhost/eventSys/subscription>Get subscription<a/></br>";
+//echo json_encode($controller->execute());
 
-echo "<a href=http://localhost/eventSys/payment>Get payment<a/></br>";
-
+echo $controller->execute();
 
 

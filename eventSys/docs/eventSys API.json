@@ -1,7 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
-        "version": "1.5.0",
+        "version": "2.0.0",
         "title": "Event System",
         "description": "A simple API documentation describing the utilization of features developed for a system that manages academic and corporative events.",
         "termsOfService": "http://helloreverb.com/terms/",
@@ -116,7 +116,7 @@
                 }
             }
         },
-        "/event/{id}": {
+        "/event/?id={id}": {
             "get": {
                 "description": "Returns an event precisely based on its ID.",
                 "operationId": "findEventById",
@@ -214,10 +214,39 @@
                 }
             }
         },
-        "/event/registration": {
+        "/subscription": {
+            "get": {
+                "description": "Returns all subscriptions confirmed in the system",
+                "operationId": "findSubscriptions",
+                "produces": [
+                    "application/json",
+                    "application/xml",
+                    "text/xml",
+                    "text/html"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "search returned results",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/subscription"
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "object not found"
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            },
             "post": {
-                "summary": "Select event and create registration.",
-                "description": "",
+                "summary": "Subscription confirmation for the previously selected event.",
                 "operationId": "addRegistration",
                 "produces": [
                     "application/json",
@@ -230,24 +259,54 @@
                         "description": "In this case, only one event is selected to be confirmed.",
                         "required": false,
                         "schema": {
-                            "$ref": "#/definitions/registration"
+                            "$ref": "#/definitions/subscription"
                         }
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Registration successful",
+                        "description": "Subscription successful",
                         "schema": {
-                            "$ref": "#/definitions/registration"
+                            "$ref": "#/definitions/subscription"
                         }
                     },
                     "400": {
-                        "description": "Error"
+                        "description": "Error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
                     }
                 }
             }
         },
-        "/event/registration/workshop": {
+        "/subscription/?id={id}": {
+            "delete": {
+                "description": "User cancels her/his event subscription based on the ID supplied",
+                "operationId": "deleteSubscription",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of subscription to cancel",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "subscription canceled"
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/workshop": {
             "post": {
                 "summary": "Select workshops from an event",
                 "description": "",
@@ -280,7 +339,34 @@
                 }
             }
         },
-        "/event/payment": {
+        "/workshop/?id={id}": {
+            "delete": {
+                "description": "Declines workshop selection",
+                "operationId": "deleteWorkshop",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of workshop to unsubscribe",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "workshop participation canceled"
+                    },
+                    "default": {
+                        "description": "unexpected error",
+                        "schema": {
+                            "$ref": "#/definitions/errorModel"
+                        }
+                    }
+                }
+            }
+        },
+        "/payment": {
             "post": {
                 "tags": [
                     "payment"
@@ -312,7 +398,7 @@
                 }
             }
         },
-        "/event/payment{id}": {
+        "/payment{id}": {
             "put": {
                 "description": "Payment confirmation.",
                 "operationId": "confirmPayment",
@@ -730,16 +816,16 @@
                 "name": {
                     "type": "string"
                 },
-                "vacancies": {
+                "subscribersLimit": {
                     "type": "integer",
                     "format": "int32"
                 },
-                "availability": {
-                    "type": "boolean"
+                "comments": {
+                    "type": "string"
                 }
             }
         },
-        "registration": {
+        "subscription": {
             "type": "object",
             "required": [
                 "id",

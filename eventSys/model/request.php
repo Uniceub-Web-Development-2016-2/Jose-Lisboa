@@ -6,7 +6,7 @@ class Request{
         private $remote_ip;
         private $resource;
         private $params;
-	private $body;
+		private $body;
   
 	 public function __construct($method, $protocol, $serverAddress, $clientAddress, $path, $queryString, $body)
     {
@@ -54,14 +54,14 @@ class Request{
         }
         public function setResource($resource){
         	$s = explode("?", $resource);
-		$r = explode("/", $s[0]);
-		$this->resource = $r[2];		
-	}
+			$r = explode("/", $s[0]);
+			$this->resource = $r[2];		
+		}
         public function getResource(){
                 return $this->resource;
         }
         
-	public function setParams($paramsString)
+		public function setParams($paramsString)
     	{
         	parse_str($paramsString, $paramsArray);
        		 $this->params = $paramsArray;
@@ -70,4 +70,8 @@ class Request{
         public function getParameters(){
                 return $this->params;
         }
+		
+		public function getBody(){
+			return $this->body;
+		}
 }

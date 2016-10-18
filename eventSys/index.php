@@ -6,10 +6,4 @@ include('../eventSys/view/index.html');
 
 $controller = new RequestController();
 
-//var_dump($controller->execute());
-
-//echo json_encode($controller->execute());
-
 echo $controller->execute();
-
-

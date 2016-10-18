@@ -21,7 +21,7 @@ class DBConnector extends PDO {
 		
 }
 
-//$result = (new DBConnector())->query('SELECT * FROM aula6');
+//$result = (new DBConnector())->query('SELECT * FROM user');
 //var_dump($result->fetchAll());
 
 

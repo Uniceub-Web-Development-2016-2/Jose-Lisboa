@@ -1,0 +1,887 @@
+swagger: '2.0'
+info:
+  version: 3.0.0
+  title: Event System
+  description: >-
+    A simple API documentation describing the utilization of features developed
+    for a system that manages academic and corporative events.
+  termsOfService: 'http://helloreverb.com/terms/'
+  contact:
+    name: Swagger API team
+    email: josemrlisboa@gmail.com
+    url: 'http://swagger.io'
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
+host: eventsystem.swagger.io
+basePath: /eventSystemApi/v1
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /event:
+    get:
+      tags:
+        - event
+      description: Returns all events from the system that the user has access to
+      operationId: findEvents
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: eventName
+          in: query
+          description: event names to filter by
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: limit
+          in: query
+          description: maximum number of results to return
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: event search returned results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/event'
+        '404':
+          description: event not found
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      description: Creates a new event.
+      operationId: addEvent
+      produces:
+        - application/json
+      parameters:
+        - name: event
+          in: body
+          description: event to add
+          required: true
+          schema:
+            $ref: '#/definitions/newEvent'
+      responses:
+        '200':
+          description: event successfully added
+          schema:
+            $ref: '#/definitions/event'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  '/event/?id={id}':
+    get:
+      description: Returns an event precisely based on its ID.
+      operationId: findEventById
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: id
+          in: path
+          description: ID of event to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: event response
+          schema:
+            $ref: '#/definitions/event'
+        '404':
+          description: Event not found
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    put:
+      description: Event update.
+      operationId: updateEvent
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: id
+          in: path
+          description: ID of event to make changes.
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: confirmation
+          schema:
+            $ref: '#/definitions/event'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    delete:
+      description: Deletes a single event based on the ID supplied
+      operationId: deleteEvent
+      parameters:
+        - name: id
+          in: path
+          description: ID of event to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: event deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  /subscription:
+    get:
+      tags:
+        - subscription
+      description: Returns all subscriptions confirmed in the system
+      operationId: findSubscriptions
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: search returned results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/subscription'
+        '404':
+          description: object not found
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      summary: Subscription confirmation for the previously selected event.
+      operationId: addSubscription
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: 'In this case, only one event is selected to be confirmed.'
+          required: false
+          schema:
+            $ref: '#/definitions/subscription'
+      responses:
+        '200':
+          description: Subscription successful
+          schema:
+            $ref: '#/definitions/subscription'
+        '400':
+          description: Error
+          schema:
+            $ref: '#/definitions/errorModel'
+  '/subscription/?id={id}':
+    put:
+      description: Subscription update.
+      operationId: updateSubscription
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: id
+          in: path
+          description: ID of subscription to make changes.
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: confirmation
+          schema:
+            $ref: '#/definitions/subscription'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    delete:
+      description: User cancels her/his event subscription based on the ID supplied
+      operationId: deleteSubscription
+      parameters:
+        - name: id
+          in: path
+          description: ID of subscription to cancel
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: subscription canceled
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  /workshop:
+    get:
+      tags:
+        - subscription
+      description: Returns all workshops confirmed in the system
+      operationId: findWorkshop
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: search returned results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/subscription'
+        '404':
+          description: object not found
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      tags:
+        - workshop
+      summary: Select workshops from an event
+      description: ''
+      operationId: addWorkshop
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: body
+          name: body
+          description: >-
+            more than one workshop can be selected. It depends, also, on the
+            vacancy number.
+          required: false
+          schema:
+            $ref: '#/definitions/workshop'
+      responses:
+        '200':
+          description: Workshop selection successful
+          schema:
+            $ref: '#/definitions/workshop'
+        '400':
+          description: Invalid Workshop
+  '/workshop/?id={id}':
+    put:
+      description: Subscription update.
+      operationId: updateWorkshop
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: id
+          in: path
+          description: ID of workshop to make changes.
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: confirmation
+          schema:
+            $ref: '#/definitions/subscription'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    delete:
+      description: Declines workshop selection
+      operationId: deleteWorkshop
+      parameters:
+        - name: id
+          in: path
+          description: ID of workshop to unsubscribe
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: workshop participation canceled
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  /payment:
+    get:
+      tags:
+        - payment
+      description: Returns all payments confirmed in the system
+      operationId: findPayment
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      responses:
+        '200':
+          description: search returned results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/subscription'
+        '404':
+          description: object not found
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      summary: Creates new payment for the selected event
+      parameters:
+        - in: body
+          name: payment
+          required: true
+          schema:
+            $ref: '#/definitions/payment'
+      responses:
+        '201':
+          description: New payment created
+          schema:
+            $ref: '#/definitions/payment'
+          headers:
+            Location:
+              description: New payment URI
+              type: string
+  '/payment?id={id}':
+    put:
+      description: Payment confirmation.
+      operationId: confirmPayment
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: id
+          in: path
+          description: Payment confirmation.
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: confirmation
+          schema:
+            $ref: '#/definitions/payment'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    delete:
+      description: Declines payment
+      operationId: deletePayment
+      parameters:
+        - name: id
+          in: path
+          description: ID of payment to cancel
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: payment canceled
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  /user:
+    get:
+      tags:
+        - user
+      description: Gets all user profiles on system.
+      operationId: findUser
+      parameters:
+        - name: name
+          in: query
+          description: profile names to filter by
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: csv
+        - name: limit
+          in: query
+          description: maximum number of results to return
+          required: false
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: profile search returned results
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user'
+        '404':
+          description: profile not found
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      summary: Add a new user to system
+      description: ''
+      operationId: addUser
+      parameters:
+        - in: body
+          name: body
+          description: New user profile that needs to be created.
+          required: false
+          schema:
+            $ref: '#/definitions/newUser'
+      responses:
+        '200':
+          description: user successfully created
+          schema:
+            $ref: '#/definitions/user'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  /user/searchByName:
+    get:
+      summary: Finds users by name
+      description: Search parameter has to be only one name
+      operationId: findUserByName
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: name
+          description: User name that need to be considered for filter
+          required: false
+          type: array
+          items:
+            type: string
+          collectionFormat: multi
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/user'
+        '400':
+          description: Invalid input
+        '404':
+          description: User not found
+  /user/login:
+    post:
+      summary: Logs user into the system
+      description: ''
+      operationId: loginUser
+      produces:
+        - application/json
+        - application/xml
+      parameters:
+        - in: query
+          name: email
+          description: Email user for login
+          required: false
+          type: string
+        - in: query
+          name: password
+          description: Password for login in clear text
+          required: false
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          schema:
+            type: string
+        '400':
+          description: Invalid username/password supplied
+  /user/logout:
+    get:
+      summary: Logs out current logged in user session
+      description: ''
+      operationId: logoutUser
+      produces:
+        - application/json
+        - application/xml
+      responses:
+        default:
+          description: Successful operation
+  '/user/?id={id}':
+    get:
+      description: Gets user profile specified by ID.
+      operationId: findUserById
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: id
+          in: path
+          description: ID of event to fetch
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: user response
+          schema:
+            $ref: '#/definitions/user'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    put:
+      description: User update.
+      operationId: updateUser
+      produces:
+        - application/json
+        - application/xml
+        - text/xml
+        - text/html
+      parameters:
+        - name: id
+          in: path
+          description: ID of user to make changes.
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: confirmation
+          schema:
+            $ref: '#/definitions/user'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    delete:
+      description: Deletes a user based on the ID supplied
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          description: ID of event to delete
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '204':
+          description: User deleted
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+definitions:
+  event:
+    type: object
+    required:
+      - id
+      - name
+      - startdate
+      - enddate
+      - eventlocation
+      - subscriberslimit
+      - eventcreator
+      - status
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      theme:
+        type: string
+      startdate:
+        type: string
+        format: date
+      enddate:
+        type: string
+        format: date
+      starttime:
+        type: integer
+        format: int32
+      eventlocation:
+        type: array
+        items:
+          $ref: '#/definitions/address'
+      registrationfee:
+        type: number
+        format: double
+      subscriberslimit:
+        type: integer
+        format: int32
+      comments:
+        type: string
+      eventcreator:
+        type: array
+        items:
+          $ref: '#/definitions/user'
+      status:
+        type: integer
+        format: int32
+  workshop:
+    type: object
+    required:
+      - id
+      - name
+      - subscriberslimit
+      - codevent
+      - status
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      subscriberslimit:
+        type: integer
+        format: int32
+      comments:
+        type: string
+      codevent:
+        type: array
+        items:
+          $ref: '#/definitions/event'
+      status:
+        type: integer
+        format: int32
+  subscription:
+    type: object
+    required:
+      - id
+      - coduser
+      - codevent
+      - subscritiondate
+      - subscriptionstatus
+      - status
+    properties:
+      id:
+        type: integer
+        format: int64
+      coduser:
+        type: array
+        items:
+          $ref: '#/definitions/user'
+      codevent:
+        type: array
+        items:
+          $ref: '#/definitions/event'
+      subscritiondate:
+        type: string
+        format: date
+      subscriptionstatus:
+        type: integer
+        format: int32
+      status:
+        type: integer
+        format: int32
+  payment:
+    type: object
+    required:
+      - id
+      - value
+      - paymentdate
+      - subscriptionid
+      - paymentstatus
+      - status
+    properties:
+      id:
+        type: integer
+        format: int64
+      value:
+        type: integer
+        format: int32
+      paymentdate:
+        type: string
+        format: date
+      subscriptionid:
+        type: array
+        items:
+          $ref: '#/definitions/subscription'
+      paymentstatus:
+        type: integer
+        format: int32
+      status:
+        type: integer
+        format: int32
+  newEvent:
+    type: object
+    required:
+      - id
+      - name
+      - startdate
+      - enddate
+      - eventlocation
+      - subscriberslimit
+      - eventcreator
+      - status
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+      theme:
+        type: string
+      startdate:
+        type: string
+        format: date
+      enddate:
+        type: string
+        format: date
+      starttime:
+        type: integer
+        format: int32
+      eventlocation:
+        type: array
+        items:
+          $ref: '#/definitions/address'
+      registrationfee:
+        type: number
+        format: double
+      subscriberslimit:
+        type: integer
+        format: int32
+      comments:
+        type: string
+      eventcreator:
+        type: array
+        items:
+          $ref: '#/definitions/user'
+      status:
+        type: integer
+        format: int32
+  user:
+    type: object
+    required:
+      - id
+      - email
+      - password
+      - phonenumber
+      - usertype
+      - status
+    properties:
+      id:
+        type: string
+        format: cpf
+      firstname:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+        format: password
+      address:
+        type: array
+        items:
+          $ref: '#/definitions/address'
+      gender:
+        type: string
+      phonenumber:
+        type: string
+      phonenumber2:
+        type: string
+      usertype:
+        type: integer
+        format: int32
+      status:
+        type: integer
+        format: int32
+  newUser:
+    type: object
+    properties:
+      id:
+        type: string
+        format: cpf
+      firstname:
+        type: string
+      lastname:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+        format: password
+      address:
+        type: array
+        items:
+          $ref: '#/definitions/address'
+      gender:
+        type: string
+      phonenumber:
+        type: string
+      phonenumber2:
+        type: string
+      usertype:
+        type: integer
+        format: int32
+      status:
+        type: integer
+        format: int32
+  address:
+    type: object
+    required:
+      - id
+      - cep
+    properties:
+      id:
+        type: integer
+        format: int32
+      cep:
+        type: string
+      logradouro:
+        type: string
+      bairro:
+        type: string
+      localidade:
+        type: string
+      uf:
+        type: string
+      complemento:
+        type: string
+      numero:
+        type: integer
+        format: int32
+      status:
+        type: integer
+        format: int32
+  errorModel:
+    type: object
+    required:
+      - code
+      - message
+    properties:
+      code:
+        type: integer
+        format: int32
+      message:
+        type: string

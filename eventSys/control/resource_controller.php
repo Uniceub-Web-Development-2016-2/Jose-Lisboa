@@ -33,27 +33,7 @@ class ResourceController
 			return false;
 		
 		return true;
-	}
-
-
-
-	//validation for post and delete methods
-
-	/* private function validate($request) 
-	   {
-		$body = $request->getBody();
-		$query = 'SELECT * FROM '.$request->getResource().self::getId($body);
-
-		$results = self::selection_query($query);
-		var_dump($results);
-		if(count($results) == 0) {
-			self::create($request);
-		}else{
-			self::remove($request);
-		}
-	   }
-	*/
-	
+	}	
 
 
 	//creates query for db based on global variable $_SERVER ($request) where REQUEST_URI(path) and QUERY_STRING(parameters) are found

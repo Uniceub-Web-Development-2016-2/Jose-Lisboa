@@ -37,7 +37,8 @@ class RequestController
 	public function execute() {
 		$request = self::create_request($_SERVER);
 		$resource_controller = new ResourceController();
-	        return $resource_controller->treat_request($request);
+	        
+		return $resource_controller->treat_request($request);
 	}
 
 

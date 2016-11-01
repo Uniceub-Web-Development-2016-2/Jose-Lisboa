@@ -1,13 +1,21 @@
 <?php
 
+//DBConnector class created extending PDO class properties
+
 class DBConnector extends PDO {
    
+   
+	//attributes for database connection
+	
     private $engine;
     private $host;
     private $database;
     private $user;
     private $pass;
-    private $connector;	
+    private $connector;
+
+	
+	//function tha enables database connection, using attributes above listed with __construct function from PDO
    
     public function __construct(){
         $this->engine = 'mysql';

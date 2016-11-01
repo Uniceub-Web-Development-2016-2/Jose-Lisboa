@@ -10,19 +10,37 @@ class ResourceController
 
  	private $METHODMAP = ['GET' => 'search' , 'POST' => 'create' , 'PUT' => 'update', 'DELETE' => 'remove'];
 	
-
+	
+	//defines all allowed resources
+	
+	const VALID_RESOURCES = array('event', 'payment', 'subscription', 'user', 'workshop');
+	
+	
 	//receives a request object and returns a function call based on its method
 
-	public function treat_request($request) {
-		return $this->{$this->METHODMAP[$request->getMethod()]}($request);
+	public function treat_request($request) 
+	{
+		if(self::is_valid_resource($request) == TRUE)	
+			return $this->{$this->METHODMAP[$request->getMethod()]}($request);
+		
+		return array("code" => "404", "message" => "resource not found");
+	}
 	
+	public function is_valid_resource($request)
+	{
+		$resource = $request->getResource();
+		if( is_null($resource) || !in_array($resource, self::VALID_RESOURCES))
+			return false;
+		
+		return true;
 	}
 
 
 
 	//validation for post and delete methods
 
-	/* private function validate($request) {
+	/* private function validate($request) 
+	   {
 		$body = $request->getBody();
 		$query = 'SELECT * FROM '.$request->getResource().self::getId($body);
 
@@ -33,15 +51,16 @@ class ResourceController
 		}else{
 			self::remove($request);
 		}
-	}
+	   }
 	*/
 	
 
 
 	//creates query for db based on global variable $_SERVER ($request) where REQUEST_URI(path) and QUERY_STRING(parameters) are found
 		
-	private function search($request) {
-		$query = 'SELECT * FROM '.$request->getResource().' WHERE '.self::queryParams($request->getParameters()). ' AND status=1';
+	private function search($request) 
+	{
+		$query = 'SELECT * FROM '.$request->getResource().' WHERE '.self::queryParams($request->getParameters()).' AND status=1';
 		return self::selection_query($query);
 	}
 	
@@ -49,7 +68,8 @@ class ResourceController
 	
 	//creation function
 
-	private function create($request) {
+	private function create($request) 
+	{
 		$body = $request->getBody();	
 		$resource = $request->getResource();
 		$query = 'INSERT INTO '.$resource.' ('.$this->getColumns($body).') VALUES ('.$this->getValues($body).')';
@@ -60,7 +80,8 @@ class ResourceController
 	
 	//update function
 	
-	private function update($request) {
+	private function update($request) 
+	{
         	$body = $request->getBody();
         	$resource = $request->getResource();
         	$query = 'UPDATE '.$resource.' SET '. $this->getUpdateCriteria($body);
@@ -72,7 +93,8 @@ class ResourceController
 	
 	//remove function (logical deletion)
 		
-	private function remove($request) {
+	private function remove($request) 
+	{
 		$body = $request->getBody();
         	$resource = $request->getResource();
         	$query = 'UPDATE '.$resource.' SET status=0'.self::getId($body);
@@ -83,7 +105,8 @@ class ResourceController
 
 	//executes select query returning data from db
 
-	private function selection_query($query) {
+	private function selection_query($query) 
+	{
 		$conn = (new DBConnector())->query($query);
 		$results = $conn->fetchAll(PDO::FETCH_ASSOC);
 
@@ -93,20 +116,22 @@ class ResourceController
 
 	//executes insert, update and logical delete queries
 	
-	private function execution_query($query) {
+	private function execution_query($query) 
+	{
 		$conn = (new DBConnector());
 
-		if ($conn->query($query) != TRUE) {
+		if ($conn->query($query) != TRUE)
     			echo "Error on: " . $query;
-		}
-    		//$conn = close();	
+		
+    		echo "Success!";	
 		
 	}
 	
 	
 	//defines select query parameters
 		
-	private function queryParams($params) {
+	private function queryParams($params) 
+	{
 		$query = "";		
 		foreach($params as $key => $value) {
 			$query .= $key.' = '."'".$value."'".' AND ';	

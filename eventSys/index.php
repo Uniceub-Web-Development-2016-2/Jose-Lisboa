@@ -5,4 +5,4 @@ include('../eventSys/view/index.html');
 
 $controller = new RequestController();
 
-echo json_encode($controller->execute(), JSON_UNESCAPED_UNICODE);
+echo json_encode($controller->execute(), JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);

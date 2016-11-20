@@ -1,8 +1,8 @@
 <?php
 
-//DBConnector class created extending PDO class properties
+//DBConn class created extending PDO class properties
 
-class DBConnector extends PDO 
+class DBConn extends PDO 
 {
    
    
@@ -20,13 +20,13 @@ class DBConnector extends PDO
    
 	public function __construct()
 	{
-		$this->engine = 'mysql';
-		$this->host = 'localhost';
-		$this->database = 'mydb';
-		$this->user = 'root';
-		$this->pass = '';
-		$dns = $this->engine.":host=".$this->host.';dbname='.$this->database.";charset=utf8";
-		parent::__construct( $dns, $this->user, $this->pass );
+        $this->engine = 'mysql';
+        $this->host = 'localhost';
+        $this->database = 'mydb';
+        $this->user = 'root';
+        $this->pass = '';
+        $dns = $this->engine.":host=".$this->host.';dbname='.$this->database.";charset=utf8";
+        parent::__construct( $dns, $this->user, $this->pass );
 	}	
 		
 }

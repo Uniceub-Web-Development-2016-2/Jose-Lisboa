@@ -7,25 +7,38 @@ include('crypt/crypt.php');
 if($_POST['iduser'] != null && $_POST['email'] != null && $_POST['password'] != null)
 {
 
-    $crypted = generateHash($_POST['password']);
+        //$body = json_encode($_POST);
 
-    $_POST['password'] = $crypted;
+        //$url = "http://localhost/eventSys/login";
 
-    $url = "http://localhost/eventSys/user";
+        //$response = \Httpful\Request::put($url)->sendsJson()->body($body)->send();
 
-    $body = json_encode($_POST);
+        //$array = json_decode($response->body, true);
 
-    $response = \Httpful\Request::post($url)->sendsJson()->body($body)->send();
+        //if($array['body']=='bool(true) ')
+        //{
+            //$crypted = generateHash($_POST['password']);
 
-    //var_dump($response);
+            //$_POST['password'] = $crypted;
 
-    $array = json_decode($response->body, true);
+        $url = "http://localhost/eventSys/user";
+
+        $body = json_encode($_POST);
+
+        $response = \Httpful\Request::post($url)->sendsJson()->body($body)->send();
+
+        //var_dump($response);
+
+        $array = json_decode($response->body, true);
+    //}
+
+        header('Location: login.php');
 
 }
 else
-{
-
-}
+    {
+        header('Location: 500.html');
+    }
 
 
 ?>

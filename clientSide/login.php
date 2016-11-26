@@ -12,13 +12,6 @@
         <!-- Bootstrap Admin Theme -->
         <link rel="stylesheet" media="screen" href="css/bootstrap-admin-theme.css">
 
-        <!-- Custom styles -->
-        <style type="text/css">
-            .alert{
-                margin: 0 auto 20px;
-            }
-        </style>
-
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
            <script type="text/javascript" src="js/html5shiv.js"></script>

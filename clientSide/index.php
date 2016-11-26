@@ -11,9 +11,6 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <!-- Bootstrap Docs -->
-        <link href="http://getbootstrap.com/docs-assets/css/docs.css" rel="stylesheet" media="screen">
-
         <!-- Bootstrap -->
         <link rel="stylesheet" media="screen" href="css/bootstrap.min.css">
         <link rel="stylesheet" media="screen" href="css/bootstrap-theme.min.css">
@@ -66,10 +63,10 @@
                         <div class="col-lg-12">
                             <div class="page-header bootstrap-admin-content-title">
                                 <h1>Event System</h1>
-                                    <a href="signup.html" class="action">
+                                    <a href="signup.php" class="action">
                                         <button class="btn btn-primary">Signup</button>
                                     </a>
-                                    <a href="login.html" class="action">
+                                    <a href="login.php" class="action">
                                         <button class="btn btn-success">Login</button>
                                     </a>
 
@@ -120,7 +117,7 @@
                                 </div>
                                 <div>
                                     <?php
-                                        return_events();
+                                        only_show_events();
                                     ?>
 
                                 </div>

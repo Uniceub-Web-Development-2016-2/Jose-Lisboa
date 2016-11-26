@@ -25,7 +25,10 @@
 
         <!-- Bootstrap Admin Theme -->
         <link rel="stylesheet" media="screen" href="css/bootstrap-admin-theme.css">
-        <link rel="stylesheet" media="screen" href="css/bootstrap-admin-theme-change-size.css">
+
+        <!-- Addding Javascript -->
+        <script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script><script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
+        <script type="text/javascript">$(document).ready(function(){    $("#cpf").mask("999.999.999-99");});</script>
 
         <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!--[if lt IE 9]>
@@ -62,15 +65,8 @@
                                         <li><a href="logout.php">Logout</a></li>
                                     </ul>
                                 </li>
-                            </ul>
-                                <p></p>
-                                <p class="pull-right">
-                                    Welcome,
-                                    <?php
-                                        echo($_SESSION['firstname']);
-                                    ?>
-                                </p>
 
+                            </ul>
                         </div><!-- /.navbar-collapse -->
                     </div>
                 </div>
@@ -86,42 +82,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="page-header bootstrap-admin-content-title">
-                                <h1>Event System</h1>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="text-muted bootstrap-admin-box-title">Details</div>
-                                </div>
-                                <div class="bootstrap-admin-panel-content">
-                                    <p>EventSys is a software developed to manage academic events with simplicity, mobility and efficiency. </p>
-                                    <p>Our intent is to deliver the best experience and facilities when joining one of the various events registered in the application. The solution also tries to show everything in a responsive way.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="text-muted bootstrap-admin-box-title">Sponsors</div>
-                                </div>
-                                <div class="bootstrap-admin-panel-content">
-                                    <ul>
-                                        <li>
-                                            <a href="https://getbootstrap.com">Bootstrap</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/">Github</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.uniceub.br">UniCEUB</a>
-                                        </li>
-                                    </ul>
-                                     <p>*The use of information or resources from this webpage is authorized only under previous authorization of all the sponsors mentioned above</p>
-                                </div>
+                                <h1>Profile</h1>
                             </div>
                         </div>
                     </div>
@@ -130,11 +91,10 @@
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="text-muted bootstrap-admin-box-title">Available events</div>
                                 </div>
                                 <div>
                                     <?php
-                                        return_events();
+                                        return_spec_user($_SESSION['iduser']);
                                     ?>
 
                                 </div>
@@ -157,8 +117,8 @@
         </div>
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap-admin-theme-change-size.js"></script>
+            <script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"></script>
+            <script type="text/javascript" src="js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="js/cepscript.js" ></script>
     </body>
 </html>

@@ -12,8 +12,7 @@
         <!-- Bootstrap Admin Theme -->
         <link rel="stylesheet" media="screen" href="css/bootstrap-admin-theme.css">
 
-        <!-- Adicionando Javascript -->
-
+        <!-- Addding Javascript -->
         <script type="text/javascript" src="js/jquery-1.2.6.pack.js"></script><script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"/></script>
         <script type="text/javascript">$(document).ready(function(){    $("#cpf").mask("999.999.999-99");});</script>
 

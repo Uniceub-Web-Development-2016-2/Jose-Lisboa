@@ -1,7 +1,6 @@
 <?php
 
     include('selection.php');
-
     if(!isset($_SESSION))
     {
         session_start();
@@ -12,12 +11,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home page - EventSys</title>
+        <title>Subscription - EventSys</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-        <!-- Bootstrap Docs -->
-        <link href="http://getbootstrap.com/docs-assets/css/docs.css" rel="stylesheet" media="screen">
 
         <!-- Bootstrap -->
         <link rel="stylesheet" media="screen" href="css/bootstrap.min.css">
@@ -92,57 +88,29 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="text-muted bootstrap-admin-box-title">Details</div>
-                                </div>
-                                <div class="bootstrap-admin-panel-content">
-                                    <p>EventSys is a software developed to manage academic events with simplicity, mobility and efficiency. </p>
-                                    <p>Our intent is to deliver the best experience and facilities when joining one of the various events registered in the application. The solution also tries to show everything in a responsive way.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <div class="text-muted bootstrap-admin-box-title">Sponsors</div>
-                                </div>
-                                <div class="bootstrap-admin-panel-content">
-                                    <ul>
-                                        <li>
-                                            <a href="https://getbootstrap.com">Bootstrap</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://github.com/">Github</a>
-                                        </li>
-                                        <li>
-                                            <a href="https://www.uniceub.br">UniCEUB</a>
-                                        </li>
-                                    </ul>
-                                     <p>*The use of information or resources from this webpage is authorized only under previous authorization of all the sponsors mentioned above</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
                         <div class="col-md-12">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
-                                    <div class="text-muted bootstrap-admin-box-title">Available events</div>
                                 </div>
                                 <div>
-                                    <?php
-                                        return_events();
-                                    ?>
+                                <div class="col-md-2">
 
+                                </div>
+
+                                <?php
+
+                                    return_subscr_parameters($_POST['idevent']);
+
+                                ?>
+                                    <div class="col-md-2">
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-        <!-- footer -->
+                <!-- footer -->
         <div class="navbar navbar-footer">
             <div class="container">
                 <div class="row">

@@ -9,7 +9,7 @@
     }
 
 
-    function verifyHash($userinput,$serveroutput)
+    function verifyHash($userinput, $serveroutput)
     {
         return crypt($userinput,$serveroutput) == $serveroutput;
     }

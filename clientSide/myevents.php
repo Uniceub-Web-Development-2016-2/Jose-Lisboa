@@ -82,7 +82,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="page-header bootstrap-admin-content-title">
-                                <h1>Event System</h1>
+                                <h1>My events</h1>
                             </div>
                         </div>
                     </div>
@@ -92,17 +92,12 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
-                                <div>
-                                <div class="col-md-2">
-
-                                </div>
+                            </div>
 
                                 <?php
-                                    return_spec_event($_POST['idevent']);
+                                    return_subscriptions($_SESSION['iduser']);
                                 ?>
-                                    <div class="col-md-2">
 
-                                    </div>
                                 </div>
                             </div>
                         </div>

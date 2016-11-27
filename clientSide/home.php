@@ -51,7 +51,7 @@
                         </div>
                         <div class="collapse navbar-collapse main-navbar-collapse">
                             <ul class="nav navbar-nav">
-                                <li class="active"><a href="#">My events</a></li>
+                                <li class="active"><a href="myevents.php">My events</a></li>
                                 <li><a href="#">About us</a></li>
                                 <li><a href="#">Contact</a></li>
                                 <li class="dropdown">

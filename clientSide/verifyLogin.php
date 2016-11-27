@@ -8,6 +8,17 @@ if(!isset($_SESSION))
         session_start();
     }
 
+?>
+
+<!DOCTYPE html>
+<html>
+<body style="background-color:black;">
+
+</body>
+</html>
+
+<?php
+
 if($_POST["email"] != null && $_POST["password"] != null)
 {
 	//$crypted = generateHash($_POST["password"]);
@@ -31,7 +42,14 @@ if($_POST["email"] != null && $_POST["password"] != null)
 			$_SESSION['lastname'] = $array['lastname'];
 			$_SESSION['usertype'] = $array['usertype'];
 
+			if($_SESSION['usertype'] == 'A')
+			{
+				header("Location: adminPanel.php");
+			}
+			else
+			{
 			header("Location: home.php");
+			}
 		}
 		else
 		{

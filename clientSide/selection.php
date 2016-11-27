@@ -313,13 +313,10 @@ if(!isset($_SESSION))
     function return_subscr_parameters($idevent)
     {
         $request = 'http://localhost/eventSys/event?idevent='.$idevent;
-        //$request2 = 'http://localhost/eventSys/user?iduser='.$iduser;
 
         $response = \Httpful\Request::get($request)->send();
-        //$response2 = \Httpful\Request::get($request2)->send();
 
         $array = json_decode($response->body, true);
-        //$array2 = json_decode($response2->body, true);
 
         foreach ($array as $key => $value)
         {
@@ -359,12 +356,12 @@ if(!isset($_SESSION))
                                                 </div>
                                                     <div class="col-md-4">
                                                         <p class="left">
-                                                            <a href="event.php" class="action btn">Cancel</a>
+                                                            <a href="home.php" class="action btn">Cancel</a>
                                                         </p>
                                                         <p class="right">
                                                             <form method="post" action="insertSubsc.php">
                                                             <input type="hidden" name="codevent" value='.$value['idevent'].'>
-                                                            <input type="hidden" name="coduser" value='.$value['iduser'].'>
+                                                            <input type="hidden" name="coduser" value='.$_SESSION['iduser'].'>
                                                             <input type="hidden" name="subscriptiondate" value='.date('Y-m-d').'>
                                                             <input type="hidden" name="subscriptionstatus" value="1">
                                                             <input type="hidden" name="sustatus" value="1">
@@ -377,6 +374,57 @@ if(!isset($_SESSION))
 
                                     </div>');
 
+    }
+}
+
+function return_subscriptions($coduser)
+{
+        $request = 'http://localhost/eventSys/subscription?coduser='.$coduser;
+
+        $response = \Httpful\Request::get($request)->send();
+
+        $array = json_decode($response->body, true);
+
+        foreach ($array as $key => $value)
+        {
+            echo('<div class="col-md-6">
+                                        <div class="panel panel-default">
+                                            <div class="bootstrap-admin-panel-content">
+                                                <p><h2>'.$value['eventname'].'</h2></p>
+                                                <p><h4>'.$value['eventtheme'].'</h4></p>
+                                                User info:</br>
+                                                <blockquote>
+                                                    '.$value['firstname'].' '.$value['lastname'].'
+                                                </blockquote>
+                                                </br>
+                                                Email: '.$value['email'].'</br>
+                                                Phone number: '.$value['phonenumber'].'</br>
+                                                </br>
+                                                Subscription info:</br>
+                                                Subscription date: '.$value['subscriptiondate'].'</br>
+                                                Subscription status: '.verify_subsc_status($value['subscriptionstatus'], $value['idsubscription']).'
+                                            </div>
+                                        </div>
+                                    </div>');
+        }
+}
+
+function verify_subsc_status($subscstatus, $idsubscription)
+{
+    if($subscstatus==1)
+    {
+      return 'Subscribed</br>
+      </br>
+      <form method="post" action="cancelSubsc.php">
+      <input type="hidden" name="idsubscription" value='.$idsubscription.'>
+      <input type="hidden" name="subscriptionstatus" value="0">
+      <button type="submit" class="btn btn-danger">Cancel subscription</button>
+      </form>';
+    }
+
+    else
+    {
+        return 'Canceled</br>';
     }
 }
 

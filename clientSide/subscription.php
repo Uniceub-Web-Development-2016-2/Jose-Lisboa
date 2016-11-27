@@ -98,7 +98,6 @@
                                 </div>
 
                                 <?php
-
                                     return_subscr_parameters($_POST['idevent']);
 
                                 ?>

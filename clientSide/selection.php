@@ -428,4 +428,24 @@ function verify_subsc_status($subscstatus, $idsubscription)
     }
 }
 
+function return_user_deletion()
+{
+    echo('                              <div class="col-md-4">
+                                                </div>
+                                                    <div class="col-md-4">
+                                                        <p class="left">
+                                                            <a href="home.php" class="action btn">Cancel</a>
+                                                        </p>
+                                                        <p class="right">
+                                                            <form method="post" action="deleteProfile.php">
+                                                                <input type="hidden" name="iduser" value='.$_SESSION['iduser'].'>
+                                                                <button class="btn btn-lg btn-danger" type="submit">Delete profile</button>
+                                                            </form>
+                                                        </p>
+                                                    </div>
+                                                <div class="col-md-2">
+                                            </div>
+    ');
+}
+
 ?>

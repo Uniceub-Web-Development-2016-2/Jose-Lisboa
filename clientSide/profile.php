@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home page - EventSys</title>
+        <title>Profile - EventSys</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -62,6 +62,7 @@
                                     <ul class="dropdown-menu">
                                         <li role="presentation" class="dropdown-header">User profile</li>
                                         <li><a href="profile.php">My profile</a></li>
+                                        <li><a href="delProfile.php">Inactivate profile</a></li>
                                         <li><a href="logout.php">Logout</a></li>
                                     </ul>
                                 </li>

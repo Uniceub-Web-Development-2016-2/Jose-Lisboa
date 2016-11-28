@@ -1,19 +1,22 @@
 <?php
+include('selection.php');
 
-    include('selection.php');
-    if(!isset($_SESSION))
-    {
-        session_start();
-    }
+if(!isset($_SESSION))
+{
+    session_start();
+}
 
 ?>
 
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Events - EventSys</title>
+        <title>Home page - EventSys</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap Docs -->
+        <link href="http://getbootstrap.com/docs-assets/css/docs.css" rel="stylesheet" media="screen">
 
         <!-- Bootstrap -->
         <link rel="stylesheet" media="screen" href="css/bootstrap.min.css">
@@ -83,7 +86,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="page-header bootstrap-admin-content-title">
-                                <h1>My events</h1>
+                                <h1>Profile</h1>
                             </div>
                         </div>
                     </div>
@@ -93,18 +96,22 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                 </div>
-                            </div>
+                                <div>
 
-                                <?php
-                                    return_subscriptions($_SESSION['iduser']);
-                                ?>
+                                <blockquote>Are you sure?</blockquote>
+                                <p>The procedure you're about to confirm inactivates your profile. Your information will not be deleted. However, if you want to use it again, a contact to the system administrator will be necessary.</p>
+                                </br>
+
+                                    <?php
+                                        return_user_deletion();
+                                    ?>
 
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                <!-- footer -->
+        <!-- footer -->
         <div class="navbar navbar-footer">
             <div class="container">
                 <div class="row">
@@ -119,8 +126,8 @@
         </div>
 
         <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap-admin-theme-change-size.js"></script>
+            <script type="text/javascript" src="js/jquery.maskedinput-1.1.4.pack.js"></script>
+            <script type="text/javascript" src="js/bootstrap.min.js"></script>
+            <script type="text/javascript" src="js/cepscript.js" ></script>
     </body>
 </html>

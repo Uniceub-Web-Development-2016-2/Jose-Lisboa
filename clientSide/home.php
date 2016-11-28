@@ -59,6 +59,7 @@
                                     <ul class="dropdown-menu">
                                         <li role="presentation" class="dropdown-header">User profile</li>
                                         <li><a href="profile.php">My profile</a></li>
+                                        <li><a href="delProfile.php">Inactivate profile</a></li>
                                         <li><a href="logout.php">Logout</a></li>
                                     </ul>
                                 </li>

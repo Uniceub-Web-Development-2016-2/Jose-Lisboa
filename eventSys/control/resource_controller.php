@@ -193,7 +193,6 @@ class ResourceController
 	private function update_event($request)
 	{
 		$k_v = json_decode($request->getBody(), true);
-		var_dump($k_v);
 		$query = "UPDATE address, event SET ".self::bodyParams($request->getBody())." WHERE event.codeventlocation=address.idaddress AND event.idevent='".$k_v["idevent"]."'";
 
 		return self::execution_query($query);
@@ -232,7 +231,6 @@ class ResourceController
 	private function update_payment($request)
 	{
 		$k_v = json_decode($request->getBody(), true);
-		var_dump($k_v);
 		$query = "UPDATE payment SET value='".$k_v["value"]."', paymentdate='".$k_v["paymentdate"]."', codsubscription='".$k_v["codsubscription"]."', paymentstatus='".$k_v["paymentstatus"]."' WHERE idpayment='".$k_v["idpayment"]."'";
 
 		return self::execution_query($query);
